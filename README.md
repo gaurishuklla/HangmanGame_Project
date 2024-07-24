@@ -1,100 +1,47 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+Introduction
+The word to guess is represented by a row of dashes representing each letter or number of the word. Rules may permit or forbid proper nouns, such as names, places, brands, or slang. If the guessing player suggests a letter which occurs in the word, the other player writes it in all its correct positions. If the suggested letter does not occur in the word, the other player adds (or alternatively, removes) one element of a hanged stick figure as a tally mark. Generally, the game ends once the word is guessed, or if the stick figure is complete — signifying that all guesses have been used.
 
-public class HangmanGame extends JFrame implements ActionListener {
-    private String[] words = {"hangman", "java", "swing", "programming", "openai"};
-    private String wordToGuess;
-    private int guessesLeft = 6;
-    private StringBuilder hiddenWord;
+The player guessing the word may, at any time, attempt to guess the whole word.[3] If the word is correct, the game is over and the guesser wins. Otherwise, the other player may choose to penalize the guesser by adding an element to the diagram. If the guesser makes enough incorrect guesses to allow the other player to complete the diagram, the guesser loses. However, the guesser can also win by guessing all the letters that appear in the word, thereby completing the word, before the diagram is completed.[4]
 
-    private JLabel hiddenWordLabel;
-    private JLabel guessesLeftLabel;
-    private JTextField guessTextField;
-    private JButton guessButton;
 
-    public HangmanGame() {
-        setTitle("Hangman Game");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+Hangman is a popular word guessing game where the player attempts to build a missing word by guessing one letter at a time. After a certain number of incorrect guesses, the game ends and the player loses. The game also ends if the player correctly identifies all the letters of the missing word.
 
-        hiddenWordLabel = new JLabel();
-        guessesLeftLabel = new JLabel("Guesses Left: " + guessesLeft);
-        guessTextField = new JTextField(10);
-        guessButton = new JButton("Guess");
+Using the Code
 
-        guessButton.addActionListener(this);
-        guessTextField.addActionListener(this);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new FlowLayout());
-        mainPanel.add(hiddenWordLabel);
-        mainPanel.add(guessesLeftLabel);
-        mainPanel.add(guessTextField);
-        mainPanel.add(guessButton);
+The main thing from the program is holding the guessed letters in an array collection and manipulating against the randomly picked word. In addition, you need to count the missing letters. Let's see the code that verifies the user's guessed letter and builds the word.
+The Hangman game in Java can be implemented with the following algorithm:
+Choose a word:
+Select a random word from a list or file.
+Create a character array of the same length as the word, filled with underscores to represent the hidden letters.
+Initialize variables:
+Set the number of allowed incorrect guesses (e.g., 6).
+Create an empty set to store the guessed letters.
+Game loop:
+While the player has lives remaining and the word is not fully guessed:
+Print the current state of the word (underscores and correctly guessed letters).
+Ask the player for a letter guess.
+Check if the letter has already been guessed. If so, inform the player and ask for another guess.
+If the letter is in the word:
+Update the character array to reveal the letter in all its correct positions.
+If the letter is not in the word:
+Decrease the number of lives remaining.
+Add the letter to the set of guessed letters.
+End game:
+If the player has guessed all the letters, print a congratulatory message.
+If the player runs out of lives, print a game over message and reveal the word.
+Key Java concepts used:
+Arrays: To store the hidden word and track guessed letters.
+Strings: To represent the word and manipulate letters.
+Loops: To control game flow and iterate over letters.
+Conditional statements: To handle different game scenarios.
+Collections (e.g., Sets): To store guessed letters efficiently.
+Random number generation: To choose a random word from a list.
+File I/O (optional): To read words from a file.
 
-        getContentPane().add(mainPanel);
+Points of Interest
 
-        initializeGame();
 
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
+In this program, I learnt how to solve word guessing problems. I hope you enjoyed the Hangman game and the implementation.
 
-    private void initializeGame() {
-        wordToGuess = words[(int) (Math.random() * words.length)];
-        hiddenWord = new StringBuilder();
-        for (int i = 0; i < wordToGuess.length(); i++) {
-            hiddenWord.append("_");
-        }
-        hiddenWordLabel.setText(hiddenWord.toString());
-        guessesLeft = 6;
-        guessesLeftLabel.setText("Guesses Left: " + guessesLeft);
-    }
-
-    private void updateHiddenWord(char guess) {
-        boolean found = false;
-        for (int i = 0; i < wordToGuess.length(); i++) {
-            if (wordToGuess.charAt(i) == guess) {
-                hiddenWord.setCharAt(i, guess);
-                found = true;
-            }
-        }
-        hiddenWordLabel.setText(hiddenWord.toString());
-        if (!found) {
-            guessesLeft--;
-            guessesLeftLabel.setText("Guesses Left: " + guessesLeft);
-            if (guessesLeft == 0) {
-                endGame("You lose! The word was: " + wordToGuess);
-            }
-        } else if (hiddenWord.toString().equals(wordToGuess)) {
-            endGame("Congratulations! You won!");
-        }
-    }
-
-    private void endGame(String message) {
-        guessTextField.setEnabled(false);
-        guessButton.setEnabled(false);
-        JOptionPane.showMessageDialog(this, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        initializeGame();
-        guessTextField.setEnabled(true);
-        guessButton.setEnabled(true);
-        guessTextField.requestFocus();
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == guessButton || e.getSource() == guessTextField) {
-            String guessText = guessTextField.getText();
-            if (guessText.length() > 0) {
-                char guess = guessText.charAt(0);
-                updateHiddenWord(guess);
-                guessTextField.setText("");
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(HangmanGame::new);
-    }
-}
+ 

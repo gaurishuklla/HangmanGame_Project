@@ -14,33 +14,53 @@ Using the Code
 
 The main thing from the program is holding the guessed letters in an array collection and manipulating against the randomly picked word. In addition, you need to count the missing letters. Let's see the code that verifies the user's guessed letter and builds the word.
 The Hangman game in Java can be implemented with the following algorithm:
+
 Choose a word:
+
 Select a random word from a list or file.
+
 Create a character array of the same length as the word, filled with underscores to represent the hidden letters.
 Initialize variables:
+
 Set the number of allowed incorrect guesses (e.g., 6).
 Create an empty set to store the guessed letters.
+
 Game loop:
+
 While the player has lives remaining and the word is not fully guessed:
 Print the current state of the word (underscores and correctly guessed letters).
 Ask the player for a letter guess.
 Check if the letter has already been guessed. If so, inform the player and ask for another guess.
+
 If the letter is in the word:
+
 Update the character array to reveal the letter in all its correct positions.
 If the letter is not in the word:
 Decrease the number of lives remaining.
 Add the letter to the set of guessed letters.
+
 End game:
+
 If the player has guessed all the letters, print a congratulatory message.
 If the player runs out of lives, print a game over message and reveal the word.
+
 Key Java concepts used:
-Arrays: To store the hidden word and track guessed letters.
-Strings: To represent the word and manipulate letters.
-Loops: To control game flow and iterate over letters.
-Conditional statements: To handle different game scenarios.
-Collections (e.g., Sets): To store guessed letters efficiently.
-Random number generation: To choose a random word from a list.
-File I/O (optional): To read words from a file.
+
+Arrays: 
+To store the hidden word and track guessed letters.
+Strings:
+To represent the word and manipulate letters.
+Loops:
+To control game flow and iterate over letters.
+Conditional statements:
+To handle different game scenarios.
+Collections (e.g., Sets):
+To store guessed letters efficiently.
+Random number generation: 
+To choose a random word from a list.
+File I/O (optional): 
+To read words from a file.
+
 
 Points of Interest
 
